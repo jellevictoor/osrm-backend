@@ -621,14 +621,14 @@ Feature: Basic Roundabout
             | wb    | primary      | yes    | roundabout |                              | through\|through;right             |
 
        When I route I should get
-           | waypoints | route                                                                      | turns                                   | lanes |
-           | a,w       | Le-Cannet-Rocheville-Strasse,,                                             | depart,roundabout-exit-undefined,arrive | ,,    |
-           | a,r       | Le-Cannet-Rocheville-Strasse,,                                             | depart,roundabout-exit-4,arrive         | ,,    |
-           | a,f       | Le-Cannet-Rocheville-Strasse,Frankfurter Strasse,Frankfurter Strasse       | depart,roundabout-exit-1,arrive         | ,,    |
-           | a,h       | Le-Cannet-Rocheville-Strasse,Bischof-Kaller-Strasse,Bischof-Kaller-Strasse | depart,roundabout-exit-2,arrive         | ,,    |
-           | u,r       | ,,                                                                         | depart,roundabout-exit-5,arrive         | ,,    |
-           | j,h       | Bischof-Kaller-Strasse,Bischof-Kaller-Strasse,Bischof-Kaller-Strasse       | depart,roundabout-exit-5,arrive         | ,,    |
-           | n,m       | ,                                                                          | depart,arrive                           | ,     |
+           | waypoints | route                                                                      | turns                                   | lanes | locations |
+           | a,w       | Le-Cannet-Rocheville-Strasse,,                                             | depart,roundabout-exit-undefined,arrive | ,,    ||
+           | a,r       | Le-Cannet-Rocheville-Strasse,,                                             | depart,roundabout-exit-4,arrive         | ,,    ||
+           | a,f       | Le-Cannet-Rocheville-Strasse,Frankfurter Strasse,Frankfurter Strasse       | depart,roundabout-exit-1,arrive         | ,,    ||
+           | a,h       | Le-Cannet-Rocheville-Strasse,Bischof-Kaller-Strasse,Bischof-Kaller-Strasse | depart,roundabout-exit-2,arrive         | ,,    ||
+           | u,r       | ,,                                                                         | depart,roundabout-exit-5,arrive         | ,,    ||
+           | j,h       | Bischof-Kaller-Strasse,Bischof-Kaller-Strasse,Bischof-Kaller-Strasse       | depart,roundabout-exit-5,arrive         | ,,    ||
+           | n,m       | ,                                                                          | depart,arrive                           | ,     ||
 
     @turboroundabout
     # http://www.openstreetmap.org/?mlat=47.57723&mlon=7.796765&zoom=16#map=19/47.57720/7.79711
