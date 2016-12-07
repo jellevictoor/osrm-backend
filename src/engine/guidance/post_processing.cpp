@@ -1,8 +1,6 @@
-#include "util/debug.hpp"
-
-#include "engine/guidance/post_processing.hpp"
 #include "extractor/guidance/constants.hpp"
 #include "extractor/guidance/turn_instruction.hpp"
+#include "engine/guidance/post_processing.hpp"
 
 #include "engine/guidance/assemble_steps.hpp"
 #include "engine/guidance/lane_processing.hpp"
@@ -945,7 +943,6 @@ std::vector<RouteStep> removeNoTurnInstructions(std::vector<RouteStep> steps)
 // that we come across.
 std::vector<RouteStep> postProcess(std::vector<RouteStep> steps)
 {
-    util::guidance::print(steps);
     // the steps should always include the first/last step in form of a location
     BOOST_ASSERT(steps.size() >= 2);
     if (steps.size() == 2)
@@ -1056,9 +1053,13 @@ std::vector<RouteStep> collapseTurns(std::vector<RouteStep> steps)
         const auto &current_step = steps[step_index];
         const auto next_step_index = step_index + 1;
         const auto one_back_index = getPreviousIndex(step_index, steps);
+
         BOOST_ASSERT(one_back_index < steps.size());
 
         const auto &one_back_step = steps[one_back_index];
+        if (hasRoundaboutType(current_step.maneuver.instruction) ||
+            hasRoundaboutType(one_back_step.maneuver.instruction))
+            continue;
 
         if (!hasManeuver(one_back_step, current_step))
             continue;

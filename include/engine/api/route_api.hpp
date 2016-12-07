@@ -153,13 +153,14 @@ class RouteAPI : public BaseAPI
 
                 guidance::trimShortSegments(steps, leg_geometry);
                 leg.steps = guidance::postProcess(std::move(steps));
+                // remove lanes from roundabouts first so we don't even touch them in collapsing
+                leg.steps = guidance::removeLanesFromRoundabouts(std::move(leg.steps));
                 leg.steps = guidance::collapseTurns(std::move(leg.steps));
                 leg.steps = guidance::buildIntersections(std::move(leg.steps));
                 leg.steps = guidance::assignRelativeLocations(std::move(leg.steps),
                                                               leg_geometry,
                                                               phantoms.source_phantom,
                                                               phantoms.target_phantom);
-                leg.steps = guidance::removeLanesFromRoundabouts(std::move(leg.steps));
                 leg.steps = guidance::anticipateLaneChange(std::move(leg.steps));
                 leg.steps = guidance::collapseUseLane(std::move(leg.steps));
                 leg_geometry = guidance::resyncGeometry(std::move(leg_geometry), leg.steps);
