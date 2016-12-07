@@ -564,7 +564,7 @@ Feature: Basic Roundabout
             | kl    | trunk       | yes    |            | Europastrasse |                                        |
             | km    | trunk       | yes    | roundabout | Europaplatz   |                                        |
             | nm    | trunk       | yes    |            | Europastrasse |                                        |
-            | mo    | trunk       | yes    | rounadbout | Europaplatz   |                                        |
+            | mo    | trunk       | yes    | roundabout | Europaplatz   |                                        |
             | op    | trunk_link  | yes    |            |               |                                        |
             | ob    | trunk       | yes    | roundabout | Europaplatz   |                                        |
 
