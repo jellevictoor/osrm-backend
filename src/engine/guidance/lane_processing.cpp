@@ -185,6 +185,9 @@ std::vector<RouteStep> removeLanesFromRoundabouts(std::vector<RouteStep> steps)
     using namespace util::guidance;
 
     const auto removeLanes = [](RouteStep &step) {
+        if (step.maneuver.instruction == TurnType::UseLane)
+            step.maneuver.instruction = TurnType::Suppressed;
+
         for (auto &intersection : step.intersections)
         {
             intersection.lane_description = {};
@@ -192,14 +195,18 @@ std::vector<RouteStep> removeLanesFromRoundabouts(std::vector<RouteStep> steps)
         }
     };
 
-    for (auto &step : steps)
-    {
-        const auto inst = step.maneuver.instruction;
+    std::for_each(
+        steps.begin(), steps.end(), [ on_roundabout = false, removeLanes ](auto &step) mutable {
+            const auto inst = step.maneuver.instruction;
+            if (entersRoundabout(inst))
+                on_roundabout = true;
 
-        if (entersRoundabout(inst) || staysOnRoundabout(inst) || leavesRoundabout(inst))
-            removeLanes(step);
-    }
+            if (on_roundabout)
+                removeLanes(step);
 
+            if (leavesRoundabout(inst))
+                on_roundabout = false;
+        });
     return steps;
 }
 
